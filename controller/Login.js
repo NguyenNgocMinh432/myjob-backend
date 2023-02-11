@@ -29,6 +29,7 @@ exports.loginCompany = (req, res) => {
     })
 }
 exports.checkLogin = (req, res) => {
+    console.log("token", String(req.headers.authorization.split(' ')[0]).toLowerCase() === 'bearer')
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLowerCase() === 'bearer') {
         var token = req.headers.authorization.split(' ')[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, company) => {
@@ -42,7 +43,7 @@ exports.checkLogin = (req, res) => {
         })
     } else {
         return res.status(403).send({
-            message: 'UN'
+            message: 'Khong gui token len'
         });
     }
 };
