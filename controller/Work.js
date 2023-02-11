@@ -8,53 +8,53 @@ const Op = Sequelize.Op;
 
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
-  Work.create(req.body, { include: ['tagWork', 'workType'] })
+  	Work.create(req.body, { include: ['tagWork', 'workType'] })
     .then((data) => {
-      res.json({ data: data });
+      	res.json({ data: data });
     })
     .catch((er) => {
-      throw er;
+     	throw er;
     });
 };
 exports.findall = (req, res) => {
-  var page = req.query.page;
-  var status = req.query.status;
-  page = parseInt(page);
-  let soLuongBoQua = (page - 1) * PAGE_SIZE;
-  if (page || status) {
-    if (page && !status) {
-      Work.findAndCountAll({
-        order: [['id', 'DESC']],
-        offset: soLuongBoQua,
-        limit: PAGE_SIZE,
-        include: [Company],
-      })
-        .then((data) => {
-          res.json({ data: data });
-        })
-        .catch((er) => {
-          throw er;
-        });
-    } else if (status && !page) {
-      Work.findAndCountAll({
-        where: { status: status },
-        order: [['id', 'DESC']],
-        include: [Company],
-      })
-        .then((data) => {
-          res.json({ data: data });
-        })
-        .catch((er) => {
-          throw er;
-        });
-    } else {
-      Work.findAndCountAll({
-        where: { status: status },
-        order: [['id', 'DESC']],
-        offset: soLuongBoQua,
-        limit: PAGE_SIZE,
-        include: [Company],
-      })
+	var page = req.query.page;
+	var status = req.query.status;
+	page = parseInt(page);
+	let soLuongBoQua = (page - 1) * PAGE_SIZE;
+	if (page || status) {
+		if (page && !status) {
+		Work.findAndCountAll({
+			order: [['id', 'DESC']],
+			offset: soLuongBoQua,
+			limit: PAGE_SIZE,
+			include: [Company],
+		})
+			.then((data) => {
+			res.json({ data: data });
+			})
+			.catch((er) => {
+			throw er;
+			});
+		} else if (status && !page) {
+		Work.findAndCountAll({
+			where: { status: status },
+			order: [['id', 'DESC']],
+			include: [Company],
+		})
+			.then((data) => {
+			res.json({ data: data });
+			})
+			.catch((er) => {
+			throw er;
+			});
+		} else {
+		Work.findAndCountAll({
+			where: { status: status },
+			order: [['id', 'DESC']],
+			offset: soLuongBoQua,
+			limit: PAGE_SIZE,
+			include: [Company],
+		})
         .then((data) => {
           res.json({ data: data });
         })
