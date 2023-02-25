@@ -14,7 +14,6 @@ exports.findall = (req, res) => {
     var status = req.query.status;
     page = parseInt(page)
     let soLuongBoQua = (page - 1) * PAGE_SIZE;
-	console.log("soLuongBoQua", soLuongBoQua);
     if (page || status) {
         if (page && !status) {
             TypeOfWork.findAndCountAll({ order: [["id", "DESC"]], offset: soLuongBoQua, limit: PAGE_SIZE }).then(data => {

@@ -12,17 +12,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       Candidate.belongsTo(models.User),
         Candidate.belongsToMany(models.Tag, {
-          through: "TagCandidates"
+          	through: "TagCandidates"
         })
     }
   };
   Candidate.init({
     userId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "Users",
-        key: "id"
-      }
+		type: DataTypes.INTEGER,
+		references: {
+			model: "Users",
+			key: "id"
+		}
     },
     target: DataTypes.STRING,
     prize: DataTypes.STRING,
