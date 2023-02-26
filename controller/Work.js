@@ -1,4 +1,4 @@
-var Work = require('../models').Work;
+var work = require('../models').Work;
 var Company = require('../models').Company;
 var TagWork = require('../models').TagWork;
 var WorkTypeOfWork = require('../models').WorkTypeOfWork;
@@ -8,7 +8,7 @@ const Op = Sequelize.Op;
 
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
-  	Work.create(req.body, { include: ['tagWork', 'workType'] })
+  	work.create(req.body, { include: ['tagWork', 'workType'] })
     .then((data) => {
       	res.json({ data: data });
     })
@@ -23,7 +23,7 @@ exports.findall = (req, res) => {
 	let soLuongBoQua = (page - 1) * PAGE_SIZE;
 	if (page || status) {
 		if (page && !status) {
-		Work.findAndCountAll({
+		work.findAndCountAll({
 			order: [['id', 'DESC']],
 			offset: soLuongBoQua,
 			limit: PAGE_SIZE,
@@ -36,7 +36,7 @@ exports.findall = (req, res) => {
 			throw er;
 			});
 		} else if (status && !page) {
-		Work.findAndCountAll({
+		work.findAndCountAll({
 			where: { status: status },
 			order: [['id', 'DESC']],
 			include: [Company],
@@ -48,7 +48,7 @@ exports.findall = (req, res) => {
 			throw er;
 			});
 		} else {
-		Work.findAndCountAll({
+		work.findAndCountAll({
 			where: { status: status },
 			order: [['id', 'DESC']],
 			offset: soLuongBoQua,
@@ -63,7 +63,7 @@ exports.findall = (req, res) => {
         });
     }
   } else {
-    Work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
+    work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
       .then((data) => {
         res.json({ data: data });
       })
@@ -77,7 +77,7 @@ exports.search = (req, res) => {
   var status = req.query.status || '';
   var name = req.query.name || '';
   var nature = req.query.nature === '0' ? '' : req.query.nature;
-  Work.findAndCountAll({
+  work.findAndCountAll({
     where: {
       nature: { [Op.like]: `%${nature}%` },
       address: { [Op.like]: `%${address}%` },
@@ -110,7 +110,7 @@ exports.findAllId = (req, res) => {
   if (page) {
     page = parseInt(page);
     let soLuongBoQua = (page - 1) * PAGE_SIZE;
-    Work.findAndCountAll({
+    work.findAndCountAll({
       offset: soLuongBoQua,
       limit: PAGE_SIZE,
       include: [Company],
@@ -123,7 +123,7 @@ exports.findAllId = (req, res) => {
         throw er;
       });
   } else {
-    Work.findAndCountAll({
+    work.findAndCountAll({
       include: [Company],
       where: { companyId: companyId, status: 1 },
     })
@@ -136,7 +136,7 @@ exports.findAllId = (req, res) => {
   }
 };
 exports.findone = (req, res) => {
-  Work.findOne({ where: { id: req.params.id }, include: [Company] })
+  work.findOne({ where: { id: req.params.id }, include: [Company] })
     .then((data) => {
       res.json({ data: data });
     })
@@ -145,7 +145,7 @@ exports.findone = (req, res) => {
     });
 };
 exports.delete = (req, res) => {
-  Work.destroy({ where: { id: req.params.id } })
+  work.destroy({ where: { id: req.params.id } })
     .then((data) => {
       res.json({ data: data });
     })
@@ -154,7 +154,7 @@ exports.delete = (req, res) => {
     });
 };
 exports.update = (req, res) => {
-  Work.update(req.body, { where: { id: req.params.id } })
+  work.update(req.body, { where: { id: req.params.id } })
     .then((data) => {
       res.json({ data: data });
     })

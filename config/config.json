@@ -1,23 +1,23 @@
 {
   "development": {
-    "username": "root",
+    "username": "mydb",
     "password": "123456789",
-    "database": "nguyenngocminh",
-    "host": "127.0.0.1",
+    "database": "myjobs",
+    "host": "13.229.180.153",
     "dialect": "mysql"
   },
   "test": {
-    "username": "root",
-    "password": null,
-    "database": "nguyenngocminh",
-    "host": "127.0.0.1",
+    "username": "mydb",
+    "password": "123456789",
+    "database": "myjobs",
+    "host": "13.229.180.153",
     "dialect": "mysql"
   },
   "production": {
-    "username": "root",
-    "password": null,
-    "database": "database_production",
-    "host": "127.0.0.1",
+    "username": "mydb",
+    "password": "123456789",
+    "database": "myjobs",
+    "host": "13.229.180.153",
     "dialect": "mysql"
   }
 }

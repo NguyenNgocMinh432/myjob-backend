@@ -1,7 +1,7 @@
 var User = require('../models').User;
 var Company = require('../models').Company;
 var Role = require("../models").Role;
-var Work = require("../models").Work;
+var work = require("../models").Work;
 var TypeOfWork = require("../models").TypeOfWork
 var Tag = require("../models").Tag
 var UserRole =require("../models").UserRole;
@@ -74,7 +74,7 @@ exports.findone = (req, res) => {
 }
 
 exports.findSaveWork = (req, res) => {
-    User.findOne({ where: { id: req.params.id }, include: [{ model: TypeOfWork }, { model: Tag }, { model: Work, attributes: ['id', 'name', 'companyId', 'address', 'dealtime', 'price1', 'price2'], include: [{ model: Company, attributes: ['name', 'avatar'] }] }] }).then(data => {
+    User.findOne({ where: { id: req.params.id }, include: [{ model: TypeOfWork }, { model: Tag }, { model: work, attributes: ['id', 'name', 'companyId', 'address', 'dealtime', 'price1', 'price2'], include: [{ model: Company, attributes: ['name', 'avatar'] }] }] }).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;

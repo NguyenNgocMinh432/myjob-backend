@@ -1,6 +1,6 @@
 var WorkApply = require('../models').WorkApply;
 var Company = require('../models').Company;
-var Work = require('../models').Work;
+var work = require('../models').Work;
 var User = require('../models').User;
 
 exports.create = (req, res) => {
@@ -54,7 +54,7 @@ exports.checkWorkApply = (req, res) => {
 		attributes: ['name', 'avatar'],
 		include: [
 			{
-				model: Work,
+				model: work,
 				attributes: ['id', 'name'],
 				include: [
 					{
@@ -88,7 +88,7 @@ exports.checkUserApply = (req, res) => {
 		attributes: ['id'],
 		include: [
 		{
-			model: Work,
+			model: work,
 			as: 'workapply',
 			attributes: ['id', 'name', 'price1', 'price2', 'address', 'dealtime'],
 			include: [{ model: Company, attributes: ['name', 'avatar'] }],

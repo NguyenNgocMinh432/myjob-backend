@@ -1,6 +1,6 @@
 var Company = require('../models').Company;
 var User = require("../models").User;
-var Work = require("../models").Work;
+var work = require("../models").Work;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -87,7 +87,7 @@ exports.findone = (req, res) => {
     })
 }
 exports.findCompanySaveUser = (req, res) => {
-    Company.findOne({ where: { id: req.params.id }, include: [{ model: Work, attributes: ["name", "id"], include: [{ model: User, attributes: ['id', 'avatar', 'name', 'address', 'phone', 'male', 'email'] }] }], attributes: ['name', 'avatar'] }).then(data => {
+    Company.findOne({ where: { id: req.params.id }, include: [{ model: work, attributes: ["name", "id"], include: [{ model: User, attributes: ['id', 'avatar', 'name', 'address', 'phone', 'male', 'email'] }] }], attributes: ['name', 'avatar'] }).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;

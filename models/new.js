@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       New.belongsTo(models.User),
         New.belongsToMany(models.Tag, {
-          through: 'TagNews',
+          through: 'tagnews',
         }),
         New.hasMany(models.TagNew, { foreignKey: 'newId', as: 'tagnew' });
     }

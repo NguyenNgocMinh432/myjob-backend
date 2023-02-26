@@ -12,7 +12,7 @@ function connect() {
         }
         console.log('Connected to the MySQL server.');
     });
-    // $query = 'SELECT*FROM companies';
+    // $query = 'SELECT*FROM news';
     // connection.query($query, function (err, rows) {
     //     if (err) {
     //         console.log('error: ' + err.message);

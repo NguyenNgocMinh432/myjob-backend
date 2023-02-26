@@ -1,5 +1,5 @@
 var TypeOfWork = require('../models').TypeOfWork;
-var Work = require('../models').Work;
+var work = require('../models').Work;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -22,7 +22,7 @@ exports.findall = (req, res) => {
                 throw er;
             })
         } else if (status && !page) {
-            TypeOfWork.findAndCountAll({ where: { status: status }, order: [["id", "DESC"]], include: [{ model: Work, attributes: ["id"] }] }).then(data => {
+            TypeOfWork.findAndCountAll({ where: { status: status }, order: [["id", "DESC"]], include: [{ model: work, attributes: ["id"] }] }).then(data => {
                 res.json({ data: data })
             }).catch(er => {
                 throw er;
@@ -36,7 +36,7 @@ exports.findall = (req, res) => {
             })
         }
     } else {
-        TypeOfWork.findAndCountAll({ order: [["id", "DESC"]], include: [{ model: Work, attributes: ["id"] }] }).then(data => {
+        TypeOfWork.findAndCountAll({ order: [["id", "DESC"]], include: [{ model: work, attributes: ["id"] }] }).then(data => {
             res.json({ data: data })
         }).catch(er => {
             throw er;
@@ -44,7 +44,7 @@ exports.findall = (req, res) => {
     }
 }
 exports.findCategori = (req, res) => {
-    TypeOfWork.findAll({ order: [["id", "DESC"]], include: [{ model: Work, attributes: ['id'] }] }).then(data => {
+    TypeOfWork.findAll({ order: [["id", "DESC"]], include: [{ model: work, attributes: ['id'] }] }).then(data => {
         res.json({ data: data })
     }).catch(er => {
         throw er;
