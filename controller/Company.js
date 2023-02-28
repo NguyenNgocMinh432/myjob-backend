@@ -1,6 +1,6 @@
-var Company = require('../models').Company;
-var User = require("../models").User;
-var work = require("../models").Work;
+var Company = require('../models').companies;
+var User = require("../models").users;
+var work = require("../models").works;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

@@ -1,10 +1,10 @@
-var User = require('../models').User;
-var Company = require('../models').Company;
-var Role = require("../models").Role;
-var work = require("../models").Work;
-var TypeOfWork = require("../models").TypeOfWork
-var Tag = require("../models").Tag
-var UserRole =require("../models").UserRole;
+var User = require('../models').users;
+var Company = require('../models').companies;
+var Role = require("../models").roles;
+var work = require("../models").works;
+var TypeOfWork = require("../models").typeofworks;
+var Tag = require("../models").tags;
+var UserRole =require("../models").userroles;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

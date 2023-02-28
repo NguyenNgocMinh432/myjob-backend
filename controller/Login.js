@@ -2,14 +2,16 @@ require("dotenv").config()
 const Company = require('../models').companies;
 const User = require('../models').users;
 const jwt = require('jsonwebtoken')
-const Role = require("../models").Role;
+const Role = require("../models").roles;
 exports.loginCompany = (req, res) => {
     const email = req.body.email;
     const status=req.body.status;
     const password = req.body.password;
+    console.log(email, status, password);
     Company.findAll({
-        where: { email: email, password: password ,status:status},
+        where: { email: email, password: password ,status:status}
     }).then(data => {
+        console.log(data);
         if (data[0] !== undefined) {
             var company = {
                 id: data[0].id,
@@ -52,15 +54,16 @@ exports.loginUser = (req, res) => {
     const password = req.body.password;
     const status=req.body.status;
     User.findAll({
-        where: { email: email, password: password,status:status },
+        where: { email: email, password: password, status:status },
         include:[Role]
     }).then(data => {
+        console.log("user", data[0]);
         if (data[0] !== undefined) {
             var user = {
-                id: data[0].id,
-                avatar: data[0].avatar,
-                name: data[0].name,
-                role: data[0].Roles[0].name,
+                id: data[0].dataValues.id,
+                avatar: data[0].dataValues.avatar,
+                name: data[0].dataValues.name,
+                role: data[0].dataValues.roles[0].name,
                 type: "user"
             };
             var token = jwt.sign({ user }, process.env.ACCESS_TOKEN_SECRET, { algorithm: 'HS256', expiresIn: '3h' });

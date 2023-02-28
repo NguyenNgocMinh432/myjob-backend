@@ -1,4 +1,4 @@
-var Candidate = require('../models').Candidate;
+var Candidate = require('../models').candidates;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

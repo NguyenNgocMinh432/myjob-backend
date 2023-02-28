@@ -1,7 +1,7 @@
 var work = require('../models').works;
-var Company = require('../models').Company;
-var TagWork = require('../models').TagWork;
-var WorkTypeOfWork = require('../models').WorkTypeOfWork;
+var Company = require('../models').companies;
+var TagWork = require('../models').tagworks;
+var WorkTypeOfWork = require('../models').worktypeofworks;
 require('dotenv').config();
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -17,14 +17,12 @@ exports.create = (req, res) => {
     });
 };
 exports.findall = (req, res) => {
-	console.log(req.query);
 	var page = req.query.page;
 	var status = req.query.status;
 	page = parseInt(page);
 	let soLuongBoQua = (page - 1) * PAGE_SIZE;
 	if (page || status) {
 		if (page && !status) {
-			console.log(1111);
 			work.findAndCountAll({
 				order: [['id', 'DESC']],
 				offset: soLuongBoQua,
@@ -58,7 +56,6 @@ exports.findall = (req, res) => {
 				include: Company,
 			})
 			.then((data) => {
-				console.log("data: " + data);
 			res.json({ data: data });
 			})
 			.catch((er) => {
@@ -66,7 +63,6 @@ exports.findall = (req, res) => {
 		});
     }
 	} else {
-		console.log(1114);
 		work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
 		.then((data) => {
 			res.json({ data: data });

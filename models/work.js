@@ -13,17 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       Work.belongsTo(models.companies),
         // Work.belongsTo(models.TypeOfWork),
         Work.belongsToMany(models.users, {
-          through: "SaveWorks"
+          through: "saveworks"
         }),
         Work.belongsToMany(models.users, {
-          through: "WorkApplies",
+          through: "workapplies",
           as: "workapply2"
         }),
         Work.belongsToMany(models.tags, {
-          through: "TagWorks"
+          through: "tagworks"
         }),
         Work.belongsToMany(models.typeofworks, {
-          through: "WorkTypeOfWorks"
+          through: "worktypeofWorks"
         }),
         Work.hasMany(models.tagworks, { foreignKey: 'workId', as: "tagWork" }),
         Work.hasMany(models.workapplies, { foreignKey: 'workId'}),

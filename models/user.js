@@ -11,23 +11,23 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 		User.belongsToMany(models.roles, {
-			through: "UserRoles"
+			through: "userroles"
 		}),
 			User.belongsToMany(models.works, {
-			through: "SaveWorks"
+			through: "saveworks"
 			}),
 			User.belongsToMany(models.companies, {
-			through: "Recruitments"
+			through: "recruitments"
 			}),
 			User.belongsToMany(models.works, {
-			through: "WorkApplies",
+			through: "workapplies",
 			as: "workapply"
 			})
 		User.belongsToMany(models.typeofworks, {
-			through: "UserTypeOfWorks"
+			through: "usertypeofworks"
 		}),
 			User.belongsToMany(models.tags, {
-			through: "UserTags"
+			through: "usertags"
 			}),
 
 			User.hasMany(models.notificationusers),

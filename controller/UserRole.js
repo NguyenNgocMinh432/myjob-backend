@@ -1,4 +1,4 @@
-var UserRole = require('../models').UserRole;
+var UserRole = require('../models').userroles;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -56,7 +56,6 @@ exports.delete = (req, res) => {
     })
 }
 exports.update = (req, res) => {
-    console.log(req.body,req.params.id);
     UserRole.update(req.body, { where: { userId: req.params.id } }).then(data => {
         res.json({ data: data })
     }).catch(er => {

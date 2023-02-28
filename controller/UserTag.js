@@ -1,4 +1,4 @@
-var UserTag = require('../models').UserTag;
+var UserTag = require('../models').usertags;
 
 exports.create = (req, res) => {
     UserTag.bulkCreate(req.body).then(data => {

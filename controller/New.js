@@ -1,6 +1,6 @@
 var New = require('../models').news;
-var TagNew = require('../models').TagNew;
-var Tag = require("../models").Tag;
+var TagNew = require('../models').tagnews;
+var Tag = require("../models").tags;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -20,7 +20,7 @@ exports.findall = (req, res) => {
     if (page) {
         page = parseInt(page)
         let soLuongBoQua = (page - 1) * PAGE_SIZE;
-        New.findAndCountAll({ order: ["id", "DESC"], offset: soLuongBoQua, limit: PAGE_SIZE }).then(data => {
+        New.findAndCountAll({ order: [["id", "DESC"]], offset: soLuongBoQua, limit: PAGE_SIZE }).then(data => {
             res.json({ data: data })
         }).catch(er => {
             throw er;

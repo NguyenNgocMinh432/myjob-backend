@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 		Company.hasMany(models.works),
 			Company.belongsToMany(models.users, {
-			through: "Recruitments"
+			through: "recruitments"
 			}),
 			Company.hasMany(models.notificationcompanies)
 		}

@@ -1,4 +1,4 @@
-var TagFormCV = require('../models').TagFormCV;
+var TagFormCV = require('../models').tagformcvs;
 
 exports.create = (req, res) => {
     TagFormCV.bulkCreate(req.body).then(data => {

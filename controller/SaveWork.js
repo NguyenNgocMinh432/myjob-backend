@@ -1,4 +1,4 @@
-var SaveWork = require('../models').SaveWork;
+var SaveWork = require('../models').saveworks;
 
 exports.create = (req, res) => {
     SaveWork.bulkCreate(req.body).then(data => {

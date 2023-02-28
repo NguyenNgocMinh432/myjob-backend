@@ -1,6 +1,6 @@
-var TagFormCV = require('../models').TagFormCV;
-var FormCV = require('../models').FormCV;
-var Tag = require('../models').Tag;
+var TagFormCV = require('../models').tagformcvs;
+var FormCV = require('../models').formcvs;
+var Tag = require('../models').tags;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

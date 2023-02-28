@@ -1,4 +1,4 @@
-var Role = require('../models').Role;
+var Role = require('../models').roles;
 
 exports.create = (req, res) => {
     Role.create(req.body).then(data => {

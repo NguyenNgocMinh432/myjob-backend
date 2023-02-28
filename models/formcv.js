@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
 		 */
 		static associate(models) {
 		FormCV.belongsToMany(models.tags, {
-			through: "TagFormCVs"
+			through: "tagformcvs"
 		}),
 			FormCV.hasMany(models.tagformcvs, { foreignKey: 'formCVId', as: "tagform" })
 		}

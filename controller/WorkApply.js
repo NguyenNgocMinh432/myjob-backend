@@ -1,7 +1,7 @@
-var WorkApply = require('../models').WorkApply;
-var Company = require('../models').Company;
-var work = require('../models').Work;
-var User = require('../models').User;
+var WorkApply = require('../models').workapplies;
+var Company = require('../models').companies;
+var work = require('../models').works;
+var User = require('../models').users;
 
 exports.create = (req, res) => {
 	WorkApply.bulkCreate(req.body)

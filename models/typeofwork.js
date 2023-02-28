@@ -9,10 +9,10 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
 		TypeOfWork.belongsToMany(models.works, {
-			through: 'WorkTypeOfWorks',
+			through: 'worktypeofworks',
 		});
 		TypeOfWork.belongsToMany(models.users, {
-			through: 'UserTypeOfWorks',
+			through: 'usertypeofworks',
 		});
       // TypeOfWork.hasMany(models.Work)
     }

@@ -1,5 +1,5 @@
 var TypeOfWork = require('../models').typeofworks;
-var work = require('../models').Work;
+var work = require('../models').works;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -10,7 +10,6 @@ exports.create = (req, res) => {
     })
 }
 exports.findall = (req, res) => {
-    console.log("typeofwork", req.query);
     var page = req.query.page;
     var status = req.query.status;
     page = parseInt(page)
@@ -23,17 +22,14 @@ exports.findall = (req, res) => {
                 throw er;
             })
         } else if (status && !page) {
-            console.log("TH 222");
             TypeOfWork.findAndCountAll({ where: { status: status }, order: [["id", "DESC"]], include: [{ model: work, attributes: ["id"] }] })
             .then(data => {
-                console.log("typeof data", data);
                 res.json({ data: data })
             }).catch(er => {
                 throw er;
             })
         } else {
             TypeOfWork.findAndCountAll({ where: { status: status }, order: [["id", "DESC"]], offset: soLuongBoQua, limit: PAGE_SIZE }).then(data => {
-                console.log("typeof data", data);
                 res.json({ data: data })
             }).catch(er => {
                 throw er;

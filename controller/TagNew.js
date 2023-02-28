@@ -1,4 +1,4 @@
-var TagNew = require('../models').TagNew;
+var TagNew = require('../models').tagnews;
 
 exports.create = (req, res) => {
     TagNew.bulkCreate(req.body).then(data => {
