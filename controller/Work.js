@@ -1,4 +1,4 @@
-var work = require('../models').Work;
+var work = require('../models').works;
 var Company = require('../models').Company;
 var TagWork = require('../models').TagWork;
 var WorkTypeOfWork = require('../models').WorkTypeOfWork;
@@ -17,30 +17,32 @@ exports.create = (req, res) => {
     });
 };
 exports.findall = (req, res) => {
+	console.log(req.query);
 	var page = req.query.page;
 	var status = req.query.status;
 	page = parseInt(page);
 	let soLuongBoQua = (page - 1) * PAGE_SIZE;
 	if (page || status) {
 		if (page && !status) {
-		work.findAndCountAll({
-			order: [['id', 'DESC']],
-			offset: soLuongBoQua,
-			limit: PAGE_SIZE,
-			include: [Company],
-		})
-			.then((data) => {
-			res.json({ data: data });
+			console.log(1111);
+			work.findAndCountAll({
+				order: [['id', 'DESC']],
+				offset: soLuongBoQua,
+				limit: PAGE_SIZE,
+				include: [Company],
 			})
-			.catch((er) => {
-			throw er;
-			});
+				.then((data) => {
+				res.json({ data: data });
+				})
+				.catch((er) => {
+				throw er;
+				});
 		} else if (status && !page) {
-		work.findAndCountAll({
-			where: { status: status },
-			order: [['id', 'DESC']],
-			include: [Company],
-		})
+			work.findAndCountAll({
+				where: { status: status },
+				order: [['id', 'DESC']],
+				include: [Company],
+			})
 			.then((data) => {
 			res.json({ data: data });
 			})
@@ -48,29 +50,31 @@ exports.findall = (req, res) => {
 			throw er;
 			});
 		} else {
-		work.findAndCountAll({
-			where: { status: status },
-			order: [['id', 'DESC']],
-			offset: soLuongBoQua,
-			limit: PAGE_SIZE,
-			include: [Company],
-		})
-        .then((data) => {
-          res.json({ data: data });
-        })
-        .catch((er) => {
-          throw er;
-        });
+			work.findAndCountAll({
+				where: { status: status },
+				order: [['id', 'DESC']],
+				offset: soLuongBoQua,
+				limit: PAGE_SIZE,
+				include: Company,
+			})
+			.then((data) => {
+				console.log("data: " + data);
+			res.json({ data: data });
+			})
+			.catch((er) => {
+			throw er;
+		});
     }
-  } else {
-    work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
-      .then((data) => {
-        res.json({ data: data });
-      })
-      .catch((er) => {
-        throw er;
-      });
-  }
+	} else {
+		console.log(1114);
+		work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
+		.then((data) => {
+			res.json({ data: data });
+		})
+		.catch((er) => {
+			throw er;
+		});
+	}
 };
 exports.search = (req, res) => {
   var address = req.query.address || '';
@@ -79,29 +83,29 @@ exports.search = (req, res) => {
   var nature = req.query.nature === '0' ? '' : req.query.nature;
   work.findAndCountAll({
     where: {
-      nature: { [Op.like]: `%${nature}%` },
-      address: { [Op.like]: `%${address}%` },
-      name: { [Op.like]: `%${name}%` },
-      status: status,
+		nature: { [Op.like]: `%${nature}%` },
+		address: { [Op.like]: `%${address}%` },
+		name: { [Op.like]: `%${name}%` },
+		status: status,
     },
     order: [['id', 'DESC']],
     attributes: [
-      'id',
-      'name',
-      'address',
-      'createdAt',
-      'price1',
-      'price2',
-      'dealtime',
+		'id',
+		'name',
+		'address',
+		'createdAt',
+		'price1',
+		'price2',
+		'dealtime',
     ],
     include: [{ model: Company, attributes: ['name', 'id', 'avatar'] }],
-  })
-    .then((data) => {
-      res.json({ data: data });
-    })
-    .catch((er) => {
-      throw er;
-    });
+	})
+		.then((data) => {
+		res.json({ data: data });
+		})
+		.catch((er) => {
+		throw er;
+		});
 };
 exports.findAllId = (req, res) => {
   var page = req.query.page;

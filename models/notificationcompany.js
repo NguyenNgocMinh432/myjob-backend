@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-		NotificationCompany.belongsTo(models.Company)
+		NotificationCompany.belongsTo(models.companies)
 		}
 	};
 	NotificationCompany.init({
 		companyId: {
 		type: DataTypes.INTEGER,
 		references: {
-			model: "Company",
+			model: "companies",
 			key: "id"
 		}
 		},
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 		status: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'NotificationCompany',
+		modelName: 'notificationcompanies',
 	});
 	return NotificationCompany;
 };

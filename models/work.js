@@ -10,31 +10,31 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Work.belongsTo(models.Company),
+      Work.belongsTo(models.companies),
         // Work.belongsTo(models.TypeOfWork),
-        Work.belongsToMany(models.User, {
+        Work.belongsToMany(models.users, {
           through: "SaveWorks"
         }),
-        Work.belongsToMany(models.User, {
+        Work.belongsToMany(models.users, {
           through: "WorkApplies",
           as: "workapply2"
         }),
-        Work.belongsToMany(models.Tag, {
+        Work.belongsToMany(models.tags, {
           through: "TagWorks"
         }),
-        Work.belongsToMany(models.TypeOfWork, {
+        Work.belongsToMany(models.typeofworks, {
           through: "WorkTypeOfWorks"
         }),
-        Work.hasMany(models.TagWork, { foreignKey: 'workId', as: "tagWork" }),
-        Work.hasMany(models.WorkApply, { foreignKey: 'workId'}),
-        Work.hasMany(models.WorkTypeOfWork, { foreignKey: 'workId', as: "workType" })
+        Work.hasMany(models.tagworks, { foreignKey: 'workId', as: "tagWork" }),
+        Work.hasMany(models.workapplies, { foreignKey: 'workId'}),
+        Work.hasMany(models.worktypeofworks, { foreignKey: 'workId', as: "workType" })
     }
   };
   Work.init({
     companyId: {
       type: DataTypes.INTEGER,
       references: {
-        model: "Company",
+        model: "companies",
         key: "id"
       }
     },
@@ -55,7 +55,7 @@ module.exports = (sequelize, DataTypes) => {
     status: DataTypes.INTEGER
   }, {
     sequelize,
-    modelName: 'Work',
+    modelName: 'works',
   });
   return Work;
 };

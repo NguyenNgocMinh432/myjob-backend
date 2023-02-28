@@ -10,19 +10,19 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-		Tag.belongsToMany(models.New, {
+		Tag.belongsToMany(models.news, {
 			through: "tagnews"
 		}),
-		Tag.belongsToMany(models.Candidate, {
+		Tag.belongsToMany(models.candidates, {
 		through: "TagCandidates"
 		}),
-		Tag.belongsToMany(models.Work, {
+		Tag.belongsToMany(models.works, {
 		through: "TagWorks"
 		})
-		Tag.belongsToMany(models.User, {
+		Tag.belongsToMany(models.users, {
 			through: "UserTags"
 		}),
-		Tag.belongsToMany(models.FormCV, {
+		Tag.belongsToMany(models.formcvs, {
 		through: "TagFormCVs"
 		})
     	}
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 		status: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'Tag',
+		modelName: 'tags',
 	});
   return Tag;
 };

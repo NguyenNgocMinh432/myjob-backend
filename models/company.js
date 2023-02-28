@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-		Company.hasMany(models.Work),
-			Company.belongsToMany(models.User, {
+		Company.hasMany(models.works),
+			Company.belongsToMany(models.users, {
 			through: "Recruitments"
 			}),
-			Company.hasMany(models.NotificationCompany)
+			Company.hasMany(models.notificationcompanies)
 		}
 	};
 	Company.init({
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 		status: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'Company',
+		modelName: 'companies',
 	});
 	return Company;
 };

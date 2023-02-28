@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-		TagNew.belongsTo(models.Tag, {
+		TagNew.belongsTo(models.tags, {
 			foreignKey: "tagId",
 			targetKey: "id"
 		});
-		TagNew.belongsTo(models.New, {
+		TagNew.belongsTo(models.news, {
 			foreignKey: "newId",
 			targetKey: "id"
 		})
@@ -37,7 +37,7 @@ module.exports = (sequelize, DataTypes) => {
 		}
 	}, {
 		sequelize,
-		modelName: 'TagNew',
+		modelName: 'tagnews',
 	});
   return TagNew;
 };

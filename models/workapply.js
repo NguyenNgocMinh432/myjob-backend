@@ -6,14 +6,14 @@ module.exports = (sequelize, DataTypes) => {
   class WorkApply extends Model {
 
 		static associate(models) {
-		WorkApply.belongsTo(models.Work, {
-			foreignKey: "workId",
-			targetKey: "id"
-		});
-		WorkApply.belongsTo(models.User, {
-			foreignKey: "userId",
-			targetKey: "id"
-		})
+			WorkApply.belongsTo(models.works, {
+				foreignKey: "workId",
+				targetKey: "id"
+			});
+			WorkApply.belongsTo(models.users, {
+				foreignKey: "userId",
+				targetKey: "id"
+			})
 		}
   };
 	WorkApply.init({
@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
 		status: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'WorkApply',
+		modelName: 'workapplies',
 	});
   return WorkApply;
 };

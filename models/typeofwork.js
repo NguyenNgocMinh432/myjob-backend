@@ -8,10 +8,10 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-		TypeOfWork.belongsToMany(models.Work, {
+		TypeOfWork.belongsToMany(models.works, {
 			through: 'WorkTypeOfWorks',
 		});
-		TypeOfWork.belongsToMany(models.User, {
+		TypeOfWork.belongsToMany(models.users, {
 			through: 'UserTypeOfWorks',
 		});
       // TypeOfWork.hasMany(models.Work)
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'TypeOfWork',
+			modelName: 'typeofworks',
 		},
   	);
  	 return TypeOfWork;

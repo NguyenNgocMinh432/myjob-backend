@@ -1,6 +1,6 @@
 require("dotenv").config()
-const Company = require('../models').Company;
-const User = require('../models').User;
+const Company = require('../models').companies;
+const User = require('../models').users;
 const jwt = require('jsonwebtoken')
 const Role = require("../models").Role;
 exports.loginCompany = (req, res) => {
@@ -29,15 +29,15 @@ exports.loginCompany = (req, res) => {
     })
 }
 exports.checkLogin = (req, res) => {
-    console.log("token", String(req.headers.authorization.split(' ')[0]).toLowerCase() === 'bearer')
     if (req.headers && req.headers.authorization && String(req.headers.authorization.split(' ')[0]).toLowerCase() === 'bearer') {
-        var token = req.headers.authorization.split(' ')[1];
+        const token = req.headers.authorization.split(' ')[1];
         jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, company) => {
             if (err) {
                 return res.status(403).send({
                     message: 'token loi roi'
                 })
             } else {
+                console.log("co tk");
                 res.json({ data: company })
             }
         })

@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
 		userId: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'UserTypeOfWork',
+		modelName: 'usertypeofworks',
 	});
   return UserTypeOfWork;
 };

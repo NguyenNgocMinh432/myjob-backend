@@ -1,4 +1,4 @@
-var Contact = require('../models').Contact;
+var Contact = require('../models').contacts;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

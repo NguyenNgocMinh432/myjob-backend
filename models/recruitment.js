@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 			companyId: {
 				type: DataTypes.INTEGER,
 				references: {
-					model: 'Company',
+					model: 'companies',
 					key: 'id',
 				},
 			},
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	{
 		sequelize,
-		modelName: 'Recruitment',
+		modelName: 'recruitments',
 	},	
 	);
 	return Recruitment;	

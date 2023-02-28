@@ -10,11 +10,11 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-		TagFormCV.belongsTo(models.Tag, {
+		TagFormCV.belongsTo(models.tags, {
 			foreignKey: "tagId",
 			targetKey: "id"
 		});
-		TagFormCV.belongsTo(models.FormCV, {
+		TagFormCV.belongsTo(models.formcvs, {
 			foreignKey: "formCVId",
 			targetKey: "id"
 		})
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 		formCVId: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'TagFormCV',
+		modelName: 'tagformcvs',
 	});
   return TagFormCV;
 };

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-		WorkTypeOfWork.belongsTo(models.Work, {
+		WorkTypeOfWork.belongsTo(models.works, {
 			foreignKey: "workId",
 			targetKey: "id"
 		})
@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 	}, {
 		sequelize,
-		modelName: 'WorkTypeOfWork',
+		modelName: 'worktypeofworks',
 	});		
   return WorkTypeOfWork;
 };

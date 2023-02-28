@@ -8,7 +8,7 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-			NotificationUser.belongsTo(models.User);
+			NotificationUser.belongsTo(models.users);
 		}
 	}
 	NotificationUser.init(
@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
 		userId: {
 			type: DataTypes.INTEGER,
 			references: {
-				model: 'Users',
+				model: 'users',
 				key: 'id',
 			},
 		},
@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
 	},
 	{
 		sequelize,
-		modelName: 'NotificationUser',
+		modelName: 'notificationusers',
 		},
 	);
 	return NotificationUser;

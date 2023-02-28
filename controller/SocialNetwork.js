@@ -1,4 +1,4 @@
-var SocialNetwork = require('../models').SocialNetwork;
+var SocialNetwork = require('../models').socialnetworks;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {

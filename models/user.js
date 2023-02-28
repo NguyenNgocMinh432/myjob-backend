@@ -10,31 +10,31 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-		User.belongsToMany(models.Role, {
+		User.belongsToMany(models.roles, {
 			through: "UserRoles"
 		}),
-			User.belongsToMany(models.Work, {
+			User.belongsToMany(models.works, {
 			through: "SaveWorks"
 			}),
-			User.belongsToMany(models.Company, {
+			User.belongsToMany(models.companies, {
 			through: "Recruitments"
 			}),
-			User.belongsToMany(models.Work, {
+			User.belongsToMany(models.works, {
 			through: "WorkApplies",
 			as: "workapply"
 			})
-		User.belongsToMany(models.TypeOfWork, {
+		User.belongsToMany(models.typeofworks, {
 			through: "UserTypeOfWorks"
 		}),
-			User.belongsToMany(models.Tag, {
+			User.belongsToMany(models.tags, {
 			through: "UserTags"
 			}),
 
-			User.hasMany(models.NotificationUser),
-			User.hasMany(models.New),
-			User.hasOne(models.Candidate),
-			User.hasMany(models.UserRole,{as:"asUserRole"})
-		User.hasMany(models.UserTag)
+			User.hasMany(models.notificationusers),
+			User.hasMany(models.news),
+			User.hasOne(models.candidates),
+			User.hasMany(models.userroles,{as:"asUserRole"})
+		User.hasMany(models.usertags)
     }
   };
 	User.init({
@@ -51,7 +51,7 @@ module.exports = (sequelize, DataTypes) => {
 		status: DataTypes.INTEGER
 	}, {
 		sequelize,
-		modelName: 'User',
+		modelName: 'users',
 	});
 	return User;
 };

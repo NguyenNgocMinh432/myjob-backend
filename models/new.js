@@ -8,11 +8,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
 		static associate(models) {
-			New.belongsTo(models.User),
-			New.belongsToMany(models.Tag, {
+			New.belongsTo(models.users),
+			New.belongsToMany(models.tags, {
 				through: 'tagnews',
 			}),
-			New.hasMany(models.TagNew, { foreignKey: 'newId', as: 'tagnew' });
+			New.hasMany(models.tagnews, { foreignKey: 'newId', as: 'tagnew' });
 		}
  	}
   	New.init(
@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 		},
 		{
 			sequelize,
-			modelName: 'New',
+			modelName: 'news',
 		},
 	);
 	return New;	
