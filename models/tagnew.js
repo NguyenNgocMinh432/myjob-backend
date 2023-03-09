@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
 		tagId: {
 		type: DataTypes.INTEGER,
 		references: {
-			model: "Tag",
+			model: "tags",
 			key: "id"
 		}
 		}

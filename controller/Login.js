@@ -7,11 +7,9 @@ exports.loginCompany = (req, res) => {
     const email = req.body.email;
     const status=req.body.status;
     const password = req.body.password;
-    console.log(email, status, password);
     Company.findAll({
         where: { email: email, password: password ,status:status}
     }).then(data => {
-        console.log(data);
         if (data[0] !== undefined) {
             var company = {
                 id: data[0].id,
@@ -39,7 +37,6 @@ exports.checkLogin = (req, res) => {
                     message: 'token loi roi'
                 })
             } else {
-                console.log("co tk");
                 res.json({ data: company })
             }
         })

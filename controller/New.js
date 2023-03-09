@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     New.create(req.body, {
         include: {
             model: TagNew,
-            as: 'tagnew'
+            as: 'tagnews'
         }
     }).then(data => {
         res.json({ data: data })
@@ -35,6 +35,7 @@ exports.findall = (req, res) => {
 }
 exports.findone = (req, res) => {
     New.findOne({ where: { id: req.params.id }, include: [Tag] }).then(data => {
+        console.log("data", data);
         res.json({ data: data })
     }).catch(er => {
         throw er;
