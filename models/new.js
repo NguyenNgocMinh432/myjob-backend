@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
 			New.belongsToMany(models.tags, {
 				through: 'tagnews',
 			}),
-			New.hasMany(models.tagnews, { foreignKey: 'newId', as: 'tagnew' });
+			New.hasMany(models.tagnews, { as: 'tagnew' });
 		}
  	}
   	New.init(

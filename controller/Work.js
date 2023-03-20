@@ -111,28 +111,28 @@ exports.findAllId = (req, res) => {
     page = parseInt(page);
     let soLuongBoQua = (page - 1) * PAGE_SIZE;
     work.findAndCountAll({
-      offset: soLuongBoQua,
-      limit: PAGE_SIZE,
-      include: [Company],
-      where: { companyId: companyId, status: 1 },
+		offset: soLuongBoQua,
+		limit: PAGE_SIZE,
+		include: [Company],
+		where: { companyId: companyId, status: 1 },
     })
-      .then((data) => {
-        res.json({ data: data });
-      })
-      .catch((er) => {
-        throw er;
-      });
+	.then((data) => {
+	res.json({ data: data });
+	})
+	.catch((er) => {
+	throw er;
+	});
   } else {
     work.findAndCountAll({
-      include: [Company],
-      where: { companyId: companyId, status: 1 },
+		include: [Company],
+		where: { companyId: companyId, status: 1 },
     })
-      .then((data) => {
-        res.json({ data: data });
-      })
-      .catch((er) => {
-        throw er;
-      });
+	.then((data) => {
+	res.json({ data: data });
+	})
+	.catch((er) => {
+	throw er;
+	});
   }
 };
 exports.findone = (req, res) => {

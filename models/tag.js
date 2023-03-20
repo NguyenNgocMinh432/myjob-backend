@@ -14,16 +14,16 @@ module.exports = (sequelize, DataTypes) => {
 			through: "tagnews"
 		}),
 		Tag.belongsToMany(models.candidates, {
-		through: "tagcandidates"
+			through: "tagcandidates"
 		}),
 		Tag.belongsToMany(models.works, {
-		through: "tagworks"
+			through: "tagworks"
 		})
 		Tag.belongsToMany(models.users, {
 			through: "usertags"
 		}),
 		Tag.belongsToMany(models.formcvs, {
-		through: "tagformcvs"
+			through: "tagformcvs"
 		})
     	}
   	};
