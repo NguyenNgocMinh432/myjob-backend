@@ -15,13 +15,13 @@ module.exports = (sequelize, DataTypes) => {
 			targetKey: "id"
 		});
 		TagNew.belongsTo(models.news, {
-			foreignKey: "newId",
+			foreignKey: "newsId",
 			targetKey: "id"
 		})
     }
   	};
 	TagNew.init({
-		newId: {
+		newsId: {
 		type: DataTypes.INTEGER,
 		references: {
 			model: "news",

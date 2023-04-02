@@ -63,7 +63,7 @@ exports.findall = (req, res) => {
 		});
     }
 	} else {
-		work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] })
+		work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] }) 
 		.then((data) => {
 			res.json({ data: data });
 		})

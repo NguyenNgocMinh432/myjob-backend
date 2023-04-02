@@ -15,7 +15,7 @@ exports.create = (req, res) => {
         } else {
             Company.findAll({ where: { email: mail } }).then(data => {
                 if (data.length !== 0) {
-                    res.json({ data: "email đã tồn tại!" })
+                    res.json({ data: "email công ty đã tồn tại!" })
                 } else {
                     User.create(req.body,{ include:{model:UserRole, as:"asUserRole"}} ).then(data => {
                         res.json({ data: data })

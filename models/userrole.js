@@ -18,18 +18,18 @@ module.exports = (sequelize, DataTypes) => {
 	};
 	UserRole.init({
 		userId: {
-		type: DataTypes.INTEGER,
-		references: {
-			model: "users",
-			key: "id"
-		}
+			type: DataTypes.INTEGER,
+			references: {
+				model: "users",
+				key: "id"
+			}
 		},
 		roleId: {
 		type: DataTypes.INTEGER,
-		references: {
-			model: "Role",
-			key: "id"
-		}
+			references: {
+				model: "Role",
+				key: "id"
+			}
 		}
 	}, {
 		sequelize,

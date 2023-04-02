@@ -26,7 +26,8 @@ function connect() {
         'mydb',
         '123456789',{
             host: '13.229.180.153',
-            dialect:'mysql' 
+            dialect:'mysql', 
+            logging: false
         }
     );
     sequelize.authenticate().then(() => {

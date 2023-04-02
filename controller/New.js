@@ -34,7 +34,7 @@ exports.findall = (req, res) => {
     }
 }
 exports.findone = (req, res) => {
-    New.findOne({ where: { id: req.params.id }, include: [Tag] }).then(data => {
+    New.findOne({ where: { id: req.params.id }, include: ['tagnew'] }).then(data => {
         console.log("data", data);
         res.json({ data: data })
     }).catch(er => {

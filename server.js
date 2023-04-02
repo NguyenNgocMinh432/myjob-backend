@@ -42,6 +42,8 @@ require('./routes/TagFormCV')(app);
 require('./routes/GetCategoriHome')(app);
 require('./routes/SearchWork')(app);
 require('./routes/UserRole')(app);
+require('./routes/follows')(app);
+
 
 app.use(function (err, req, res, next) {
   res.status(500).send(err);
