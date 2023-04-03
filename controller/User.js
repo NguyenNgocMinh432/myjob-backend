@@ -1,3 +1,5 @@
+const admin = require('firebase-admin');
+var serviceAccount = require("../config/serviceAccountKey.json");
 var User = require('../models').users;
 var Company = require('../models').companies;
 var Role = require("../models").roles;
@@ -93,4 +95,68 @@ exports.update = (req, res) => {
     }).catch(er => {
         throw er;
     })
+}
+exports.updateDevice = (req, res) => {
+    const getBodyRequest = req.body;
+    const { userId, token } = getBodyRequest;
+
+    User.findOne({where: {id: userId}}).then(user => {
+        if(user) {
+            user.update({device: token}).then(data => {
+                res.status(200).json({
+                    code: 1,
+                    message: "update devide thành công"
+                })
+            }).catch(err => {
+                res.status(200).json({
+                    code: 0,
+                    message: "update devide không thành công"
+                })
+            })
+        } else {
+
+        }
+    }).catch(err => {
+        res.status(200).json({
+            code: 0,
+            message: "Không tìm thấy user"
+        })
+    })
+}
+
+exports.sharePost = async(req, res) => {
+    const requestBodyShare = req.body;
+    const { userId, title, address } = requestBodyShare;
+    // Initialize Firebase Admin SDK
+    // try {
+    //     admin.initializeApp({
+    //         credential: admin.credential.cert(serviceAccount)
+    //     });
+    // } catch (error) {
+    //     admin.app()
+    // }
+    if (admin.apps.length === 0) {
+        admin.initializeApp({
+            credential: admin.credential.cert(serviceAccount)
+        });
+    }
+    
+    const getUserId = await User.findOne({where: {id: userId}});
+
+    // Define the message payload
+    const message = {
+        notification: {
+            title: title,
+            body: address,
+        },
+        token: getUserId.dataValues.device,
+    };
+    console.log(message)
+    admin.messaging().send(message)
+    .then((response) => {
+        console.log('Successfully sent message:', response);
+    })
+    .catch((error) => {
+        console.error('Error sending message:', error);
+    });
 }

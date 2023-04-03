@@ -7,6 +7,8 @@ module.exports = app => {
     router.get('/:id', User.findone);
     router.delete('/:id', User.delete);
     router.patch('/:id', User.update);
+    router.patch('/device', User.updateDevice);
+    router.post('/share', User.sharePost);
 
     app.use("/users", router);
 }

@@ -48,7 +48,8 @@ module.exports = (sequelize, DataTypes) => {
 		date: DataTypes.STRING,
 		introduce: DataTypes.TEXT,
 		banner: DataTypes.STRING(500),
-		status: DataTypes.INTEGER
+		status: DataTypes.INTEGER,
+		device:DataTypes.STRING
 	}, {
 		sequelize,
 		modelName: 'users',
