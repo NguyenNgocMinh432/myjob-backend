@@ -99,29 +99,30 @@ exports.update = (req, res) => {
 exports.updateDevice = (req, res) => {
     const getBodyRequest = req.body;
     const { userId, token } = getBodyRequest;
-
-    User.findOne({where: {id: userId}}).then(user => {
-        if(user) {
-            user.update({device: token}).then(data => {
-                res.status(200).json({
-                    code: 1,
-                    message: "update devide thành công"
+    if (userId) {
+        User.findOne({where: {id: userId}}).then(user => {
+            if(user) {
+                user.update({device: token}).then(data => {
+                    res.status(200).json({
+                        code: 1,
+                        message: "update devide thành công"
+                    })
+                }).catch(err => {
+                    res.status(200).json({
+                        code: 0,
+                        message: "update devide không thành công"
+                    })
                 })
-            }).catch(err => {
-                res.status(200).json({
-                    code: 0,
-                    message: "update devide không thành công"
-                })
+            } else {
+    
+            }
+        }).catch(err => {
+            res.status(200).json({
+                code: 0,
+                message: "Không tìm thấy user"
             })
-        } else {
-
-        }
-    }).catch(err => {
-        res.status(200).json({
-            code: 0,
-            message: "Không tìm thấy user"
         })
-    })
+    }
 }
 
 exports.sharePost = async(req, res) => {
