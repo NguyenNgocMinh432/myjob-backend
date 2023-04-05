@@ -17,20 +17,16 @@ module.exports = (sequelize, DataTypes) => {
 		// }
 	};
 	CV.init({
-        userId: {
-			type: DataTypes.INTEGER,
-			references: {
-				model: "users",
-				key: "id"
-			}
-		},
+        userId:DataTypes.INTEGER,
+		avatar: DataTypes.INTEGER,
         target: DataTypes.STRING,
 		education: DataTypes.STRING,
 		experience: DataTypes.STRING,
-		active: DataTypes.INTEGER,
+		action: DataTypes.INTEGER,
 		certificate: DataTypes.TEXT,
         project: DataTypes.STRING,
-        more_information: DataTypes.STRING
+        more: DataTypes.STRING,
+		cvId: DataTypes.STRING
 
 	}, {
 		sequelize,

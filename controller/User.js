@@ -1,5 +1,6 @@
 const admin = require('firebase-admin');
 var serviceAccount = require("../config/serviceAccountKey.json");
+const CV = require('../models/').cvs;
 var User = require('../models').users;
 var Company = require('../models').companies;
 var Role = require("../models").roles;
@@ -160,4 +161,20 @@ exports.sharePost = async(req, res) => {
     .catch((error) => {
         console.error('Error sending message:', error);
     });
+}
+
+exports.createcv = async(req, res, next) => {
+    const dataCreatecv = req.body;
+    const responseCreateCv = await CV.create(dataCreatecv);
+    if(responseCreateCv) {
+        res.status(200).json({
+            code: 1,
+            message: "tao cv thanh cong"
+        })
+    }
+}
+
+exports.findCV = async(req, res, next) => {
+    console.log("11111111111111", req)
+    
 }
