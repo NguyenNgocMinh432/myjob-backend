@@ -10,9 +10,11 @@ let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
   	work.create(req.body, { include: ['tagWork', 'workType'] })
     .then((data) => {
-      	res.json({ data: data });
+		console.log("thêm công việc", data)
+      	res.json({ data: data.dataValues });
     })
     .catch((er) => {
+		console.log("lỗi", er)
      	throw er;
     });
 };

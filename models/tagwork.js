@@ -18,11 +18,11 @@ module.exports = (sequelize, DataTypes) => {
   	};
 	TagWork.init({
 		tagId: {
-		type: DataTypes.INTEGER,
-		references: {
-			model: "tags",
-			key: "id"
-		}
+			type: DataTypes.INTEGER,
+			references: {
+				model: "tags",
+				key: "id"
+			}
 		},
 		workId: {
 		type: DataTypes.INTEGER,

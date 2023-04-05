@@ -1,4 +1,5 @@
 const admin = require('firebase-admin');
+const nodemailer = require("nodemailer");
 var serviceAccount = require("../config/serviceAccountKey.json");
 const CV = require('../models/').cvs;
 var User = require('../models').users;
@@ -160,6 +161,11 @@ exports.sharePost = async(req, res) => {
     })
     .catch((error) => {
         console.error('Error sending message:', error);
+        logger.error("Firebase Notification Failed: ${e.message}")
+            if (e.errorCode.name == "INVALID_ARGUMENT" || e.errorCode.name == "NOT_FOUND" || e.messagingErrorCode.name == "UNREGISTERED") {
+                myNotificationTokenRepo.clearTokenByUserId(user.uuid)
+                logger.info("Deleted Firebase Notification token for the user: ${user.userName}")
+            }
     });
 }
 
@@ -174,7 +180,53 @@ exports.createcv = async(req, res, next) => {
     }
 }
 
-exports.findCV = async(req, res, next) => {
-    console.log("11111111111111", req)
-    
+exports.findCVUser = async(req, res, next) => {
+    const userId = Number(req.body.userId);
+    const cvId = Number(req.body.cvId)
+    const responseGetCvUser = await CV.findOne({where: {cvId: cvId, userId: userId}})
+    if (responseGetCvUser) {
+        res.status(200).json({
+            code: 1,
+            message: "Lấy thông tin cv user thành công",
+            data: responseGetCvUser.dataValues
+        })
+    }
+}
+
+// Gửi gmail
+exports.sendMail = async(req, res) => {
+    const email = req.body.email
+    console.log(email)
+     // create reusable transporter object using the default SMTP transport
+    let transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+        user: "18a10010230@students.hou.edu.vn", // generated ethereal user
+        pass: "oxtswtobljuxijkn", // generated ethereal password
+        },
+        tls: {
+            rejectUnauthorized: false
+        }
+    });
+
+    // send mail with defined transport object
+    await transporter.sendMail({
+        from: '18a10010230@students.hou.edu.vn', // sender address
+        to: `${email}`, // list of receivers
+        subject: "Hello ✔", // Subject line
+        text: "Hello world?", // plain text body
+        html: "<b>Hello world?</b>", // html body
+    }, (err) => {
+        if (err) {
+            console.log(err);
+            return res.status(200).json({
+                code: 0,
+                msg: "Gửi mail Không thành công"
+            })
+        }
+        return res.status(200).json({
+            code: 1,
+            msg: "Gửi mail thành công"
+        })
+    })
 }

@@ -5,14 +5,13 @@ module.exports = app => {
     router.post("/", User.create);
     router.get('/', User.findall);
     router.get('/:id', User.findone);
-    router.get('/getcvuser', (req,res) => {
-        console.log(1111111111)
-    });
+    router.post('/getcvuser', User.findCVUser);
     router.delete('/:id', User.delete);
     router.patch('/:id', User.update);
     router.patch('/device', User.updateDevice);
     router.post('/share', User.sharePost);
     router.post('/createcv', User.createcv);
+    router.post('/sendMail', User.sendMail);
 
     app.use("/users", router);
 }
