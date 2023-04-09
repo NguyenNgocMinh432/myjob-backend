@@ -126,7 +126,7 @@ exports.updateDevice = (req, res) => {
         })
     }
 }
-
+// Gửi notifications
 exports.sharePost = async(req, res) => {
     const requestBodyShare = req.body;
     const { userId, title, address } = requestBodyShare;
@@ -161,7 +161,6 @@ exports.sharePost = async(req, res) => {
     })
     .catch((error) => {
         console.error('Error sending message:', error);
-        logger.error("Firebase Notification Failed: ${e.message}")
             if (e.errorCode.name == "INVALID_ARGUMENT" || e.errorCode.name == "NOT_FOUND" || e.messagingErrorCode.name == "UNREGISTERED") {
                 myNotificationTokenRepo.clearTokenByUserId(user.uuid)
                 logger.info("Deleted Firebase Notification token for the user: ${user.userName}")
@@ -195,14 +194,15 @@ exports.findCVUser = async(req, res, next) => {
 
 // Gửi gmail
 exports.sendMail = async(req, res) => {
-    const email = req.body.email
-    console.log(email)
+    const email = req.body.yourEmail;
+    const contentEmail = req.body.content_email;
+    const titleEmail = req.body.title;
      // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-        user: "18a10010230@students.hou.edu.vn", // generated ethereal user
-        pass: "oxtswtobljuxijkn", // generated ethereal password
+            user: "18a10010230@students.hou.edu.vn", // generated ethereal user
+            pass: "oxtswtobljuxijkn", // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
@@ -213,9 +213,9 @@ exports.sendMail = async(req, res) => {
     await transporter.sendMail({
         from: '18a10010230@students.hou.edu.vn', // sender address
         to: `${email}`, // list of receivers
-        subject: "Hello ✔", // Subject line
-        text: "Hello world?", // plain text body
-        html: "<b>Hello world?</b>", // html body
+        subject: "Thư mời lịch hẹn phỏng vấn", // Subject line
+        text: titleEmail, // plain text body
+        html: `<b>${contentEmail}</b>`, // html body
     }, (err) => {
         if (err) {
             console.log(err);

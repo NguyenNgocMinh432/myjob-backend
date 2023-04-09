@@ -8,7 +8,7 @@ module.exports = app => {
     router.post('/getcvuser', User.findCVUser);
     router.delete('/:id', User.delete);
     router.patch('/:id', User.update);
-    router.patch('/device', User.updateDevice);
+    router.post('/device', User.updateDevice);
     router.post('/share', User.sharePost);
     router.post('/createcv', User.createcv);
     router.post('/sendMail', User.sendMail);
