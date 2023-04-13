@@ -22,7 +22,7 @@ exports.findall = (req, res) => {
     });
 };
 exports.findone = (req, res) => {
-  WorkApply.findOne({ where: { id: req.params.id } })
+  WorkApply.findAll({ where: { userId: req.params.id } })
     .then((data) => {
       	res.json({ data: data });
     })

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
 		static associate(models) {
 			New.belongsTo(models.users),
 			New.belongsToMany(models.tags, {
-				through: 'tagnews',
+				through: 'tagnew',
 			}),
 			New.hasMany(models.tagnews, { as: 'tagnew' });
 		}

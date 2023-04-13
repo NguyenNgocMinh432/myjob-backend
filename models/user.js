@@ -49,7 +49,8 @@ module.exports = (sequelize, DataTypes) => {
 		introduce: DataTypes.TEXT,
 		banner: DataTypes.STRING(500),
 		status: DataTypes.INTEGER,
-		device:DataTypes.STRING
+		device:DataTypes.STRING,
+		last_search: DataTypes.STRING
 	}, {
 		sequelize,
 		modelName: 'users',

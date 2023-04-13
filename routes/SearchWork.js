@@ -3,6 +3,7 @@ module.exports = app => {
     var router = require('express').Router();
 
     router.get('/', Work.search);
+    router.get('/suggest', Work.suggest);
 
     app.use("/searchWorks", router);
 }

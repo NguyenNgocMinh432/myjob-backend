@@ -2,6 +2,8 @@ var work = require('../models').works;
 var Company = require('../models').companies;
 var TagWork = require('../models').tagworks;
 var WorkTypeOfWork = require('../models').worktypeofworks;
+var User = require('../models').users;
+
 require('dotenv').config();
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
@@ -63,7 +65,7 @@ exports.findall = (req, res) => {
 			.catch((er) => {
 			throw er;
 		});
-    }
+    	}
 	} else {
 		work.findAndCountAll({ order: [['id', 'DESC']], include: [Company] }) 
 		.then((data) => {
@@ -75,36 +77,88 @@ exports.findall = (req, res) => {
 	}
 };
 exports.search = (req, res) => {
-  var address = req.query.address || '';
-  var status = req.query.status || '';
-  var name = req.query.name || '';
-  var nature = req.query.nature === '0' ? '' : req.query.nature;
-  work.findAndCountAll({
-    where: {
-		nature: { [Op.like]: `%${nature}%` },
-		address: { [Op.like]: `%${address}%` },
-		name: { [Op.like]: `%${name}%` },
-		status: status,
-    },
-    order: [['id', 'DESC']],
-    attributes: [
-		'id',
-		'name',
-		'address',
-		'createdAt',
-		'price1',
-		'price2',
-		'dealtime',
-    ],
-    include: [{ model: Company, attributes: ['name', 'id', 'avatar'] }],
-	})
+	var address = req.query.address || '';
+	var status = req.query.status || '';
+	var name = req.query.name || '';
+	var userId = req.query.userId || '';
+	var nature = req.query.nature === '0' ? '' : req.query.nature;
+	work.findAndCountAll({	
+		where: {
+			nature: { [Op.like]: `%${nature}%` },
+			address: { [Op.like]: `%${address}%` },
+			name: { [Op.like]: `%${name}%` },
+			status: status,
+		},
+		order: [['id', 'DESC']],
+		attributes: [
+			'id',
+			'name',
+			'address',
+			'createdAt',
+			'price1',
+			'price2',
+			'dealtime',
+		],
+		include: [{ model: Company, attributes: ['name', 'id', 'avatar'] }],
+		})
 		.then((data) => {
 		res.json({ data: data });
 		})
 		.catch((er) => {
 		throw er;
 		});
+	
+	// update kết quả lưu vào cho user
+	console.log("name - userId",name, userId)
+	User.update({ last_search: name }, {
+		where: {
+			id: Number(userId)
+		}
+	})
+	.then(result => {
+		console.log(result);
+	})
+	.catch(error => {
+		console.log("Lỗi",error);
+	});
 };
+// Gợi ý theo lịch sử tìm kiếm
+exports.suggest = async (req,res) => {
+	var userId = req.query.userId || '';
+	console.log("suggest",Number(userId));
+	if (userId) {
+		const responseUser = await User.findOne({where:{id: Number(userId)}})
+		const valueSuggest = responseUser.dataValues.last_search;
+		const searchWork = await work.findAndCountAll({where:{
+			name: { [Op.like]: `%${valueSuggest}%` },
+		},
+		order: [['id', 'DESC']],
+		attributes: [
+			'id',
+			'name',
+			'address',
+			'createdAt',
+			'price1',
+			'price2',
+			'dealtime',
+		],
+		include: [{ model: Company, attributes: ['name', 'id', 'avatar'] }],
+		})
+		if (searchWork) {
+			res.status(200).json({
+				code: 1,
+				msg: "Thành công",
+				data: searchWork
+			})
+		}
+	} else {
+		res.status(200).json({
+			code: 0,
+			msg: "Gợi ý không thành công"
+		})
+	}
+};
+
 exports.findAllId = (req, res) => {
   var page = req.query.page;
   var companyId = req.query.id;

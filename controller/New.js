@@ -7,7 +7,7 @@ exports.create = (req, res) => {
     New.create(req.body, {
         include: {
             model: TagNew,
-            as: 'tagnews'
+            as: 'tagnew'
         }
     }).then(data => {
         res.json({ data: data })

@@ -130,6 +130,7 @@ exports.updateDevice = (req, res) => {
 exports.sharePost = async(req, res) => {
     const requestBodyShare = req.body;
     const { userId, title, address } = requestBodyShare;
+    console.log("share",userId);
     // Initialize Firebase Admin SDK
     // try {
     //     admin.initializeApp({
@@ -182,7 +183,12 @@ exports.createcv = async(req, res, next) => {
 exports.findCVUser = async(req, res, next) => {
     const userId = Number(req.body.userId);
     const cvId = Number(req.body.cvId)
-    const responseGetCvUser = await CV.findOne({where: {cvId: cvId, userId: userId}})
+    let responseGetCvUser;
+    if (userId && cvId) {
+        responseGetCvUser = await CV.findOne({where: {cvId: cvId, userId: userId}})
+    } else if (userId) {
+        responseGetCvUser = await CV.findOne({where: {userId: userId}})
+    }
     if (responseGetCvUser) {
         res.status(200).json({
             code: 1,
