@@ -4,12 +4,29 @@ var app = express();
 var cors = require('cors');
 const connect = require('./config/database/database');
 
+const http = require('http');
+const {Server} = require("socket.io");
+const server = http.createServer(app)
+
 app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.get('/', (req, res) => {
   res.send('<h1>Chào tất cả các bạn đến với api jobIt!</h1>');
 });
+
+//setup socket.io
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:6666",
+    methods: ["GET", "POST"]
+  }
+});
+
+io.on("connection", (socket) => {
+  console.log(`user connected to ${socket.id}`)
+})
+
 connect();
 require('./routes/loginCompany')(app);
 require('./routes/loginUser')(app);
@@ -43,7 +60,7 @@ require('./routes/GetCategoriHome')(app);
 require('./routes/SearchWork')(app);
 require('./routes/UserRole')(app);
 require('./routes/follows')(app);
-
+require('./routes/feedbacks')(app);
 
 app.use(function (err, req, res, next) {
   res.status(500).send(err);

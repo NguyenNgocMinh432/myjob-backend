@@ -129,7 +129,7 @@ exports.updateDevice = (req, res) => {
 // Gửi notifications
 exports.sharePost = async(req, res) => {
     const requestBodyShare = req.body;
-    const { userId, title, address } = requestBodyShare;
+    const { userId, title, address, url } = requestBodyShare;
     console.log("share",userId);
     // Initialize Firebase Admin SDK
     // try {
@@ -152,6 +152,11 @@ exports.sharePost = async(req, res) => {
         notification: {
             title: title,
             body: address,
+        },
+        webpush: {
+            fcmOptions: {
+              link: url
+            }
         },
         token: getUserId.dataValues.device,
     };
