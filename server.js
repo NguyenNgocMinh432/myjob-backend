@@ -1,11 +1,11 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+const {Server} = require("socket.io");
 var app = express();
 var cors = require('cors');
 const connect = require('./config/database/database');
-
+//setup socket.io
 const http = require('http');
-const {Server} = require("socket.io");
 const server = http.createServer(app)
 
 app.use(cors());
@@ -17,16 +17,25 @@ app.get('/', (req, res) => {
 
 //setup socket.io
 const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:6666",
-    methods: ["GET", "POST"]
-  }
+	cors: {
+		origin: "http://localhost:3000",
+		methods: ["GET", "POST"]
+	}
 });
 
-io.on("connection", (socket) => {
-  console.log(`user connected to ${socket.id}`)
-})
-
+io.on('connection', (socket) => {
+	console.log('a user connected', socket.id);
+	socket.on('share', (msg) => {
+		const dataNotification = JSON.parse(msg);
+		io.emit('result', msg);
+		console.log(dataNotification)
+	});
+	socket.on('disconnect', () => {
+		console.log('user disconnected');
+	});
+});
+io.listen(4000);
+// connect database
 connect();
 require('./routes/loginCompany')(app);
 require('./routes/loginUser')(app);
