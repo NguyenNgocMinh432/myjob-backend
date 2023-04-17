@@ -13,17 +13,17 @@ module.exports = (sequelize, DataTypes) => {
       Work.belongsTo(models.companies),
         // Work.belongsTo(models.TypeOfWork),
         Work.belongsToMany(models.users, {
-          through: "saveworks"
+          	through: "saveworks"
         }),
         Work.belongsToMany(models.users, {
-          through: "workapplies",
-          as: "workapply2"
+			through: "workapplies",
+			as: "workapply2"
         }),
         Work.belongsToMany(models.tags, {
-          through: "tagworks"
+          	through: "tagworks"
         }),
         Work.belongsToMany(models.typeofworks, {
-          through: "worktypeofWorks"
+          	through: "worktypeofWorks"
         }),
         Work.hasMany(models.tagworks, { foreignKey: 'workId', as: "tagWork" }),
         Work.hasMany(models.workapplies, { foreignKey: 'workId'}),
@@ -32,11 +32,11 @@ module.exports = (sequelize, DataTypes) => {
   };
   Work.init({
     companyId: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: "companies",
-        key: "id"
-      }
+		type: DataTypes.INTEGER,
+		references: {
+			model: "companies",
+			key: "id"
+		}
     },
     name: DataTypes.STRING,
     address: DataTypes.STRING,
@@ -53,9 +53,9 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     form: DataTypes.STRING,
     status: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'works',
-  });
-  return Work;
+	}, {
+		sequelize,
+		modelName: 'works',
+	});
+	return Work;
 };

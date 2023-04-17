@@ -15,9 +15,18 @@ module.exports = (sequelize, DataTypes) => {
         //     }),
 		// 	CV.hasMany(models.tagformcvs, { foreignKey: 'formCVId', as: "tagform" })
 		// }
+		static associate(models) {
+			CV.belongsTo(models.users)
+		}
 	};
 	CV.init({
-        userId:DataTypes.INTEGER,
+        userId: {
+			type: DataTypes.INTEGER,
+			references: {
+				model: "Users",
+				key: "id"
+			}
+		},
 		avatar: DataTypes.INTEGER,
         target: DataTypes.STRING,
 		education: DataTypes.STRING,

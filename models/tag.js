@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
 		Tag.belongsToMany(models.news, {
 			through: "tagnews"
 		}),
-		Tag.belongsToMany(models.candidates, {
-			through: "tagcandidates"
-		}),
+		// Tag.belongsToMany(models.candidates, {
+		// 	through: "tagcandidates"
+		// }),
 		Tag.belongsToMany(models.works, {
 			through: "tagworks"
 		})
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
 		Tag.belongsToMany(models.formcvs, {
 			through: "tagformcvs"
 		})
-    	}
+    }
   	};
 	Tag.init({
 		name: DataTypes.STRING,

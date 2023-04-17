@@ -13,27 +13,27 @@ module.exports = (sequelize, DataTypes) => {
 		User.belongsToMany(models.roles, {
 			through: "userroles"
 		}),
-			User.belongsToMany(models.works, {
+		User.belongsToMany(models.works, {
 			through: "saveworks"
-			}),
-			User.belongsToMany(models.companies, {
+		}),
+		User.belongsToMany(models.companies, {
 			through: "recruitments"
-			}),
-			User.belongsToMany(models.works, {
+		}),
+		User.belongsToMany(models.works, {
 			through: "workapplies",
 			as: "workapply"
-			})
+		})
 		User.belongsToMany(models.typeofworks, {
 			through: "usertypeofworks"
 		}),
-			User.belongsToMany(models.tags, {
+		User.belongsToMany(models.tags, {
 			through: "usertags"
-			}),
+		}),
 
-			User.hasMany(models.notificationusers),
-			User.hasMany(models.news),
-			User.hasOne(models.candidates),
-			User.hasMany(models.userroles,{as:"asUserRole"})
+		User.hasMany(models.notificationusers),
+		User.hasMany(models.news),
+		// User.hasOne(models.candidates),
+		User.hasMany(models.userroles,{as:"asUserRole"})
 		User.hasMany(models.usertags)
     }
   };
