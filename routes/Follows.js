@@ -5,7 +5,7 @@ module.exports = app => {
     router.post("/", follows.create);
     // router.get('/', FormCV.findall);
     router.get('/', follows.findone);
-    // router.delete('/:id', FormCV.delete);
+    router.post('/delete', follows.delete);
     // router.patch('/:id', FormCV.update);
 
     app.use("/follows", router);

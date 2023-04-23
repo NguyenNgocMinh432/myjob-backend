@@ -16,9 +16,6 @@ module.exports = (sequelize, DataTypes) => {
 		User.belongsToMany(models.works, {
 			through: "saveworks"
 		}),
-		User.belongsToMany(models.companies, {
-			through: "recruitments"
-		}),
 		User.belongsToMany(models.works, {
 			through: "workapplies",
 			as: "workapply"
@@ -35,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
 		// User.hasOne(models.candidates),
 		User.hasMany(models.userroles,{as:"asUserRole"})
 		User.hasMany(models.usertags)
+		User.hasMany(models.cvs);
     }
   };
 	User.init({

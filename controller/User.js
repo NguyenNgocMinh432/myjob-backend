@@ -9,6 +9,7 @@ var work = require("../models").works;
 var TypeOfWork = require("../models").typeofworks;
 var Tag = require("../models").tags;
 var UserRole =require("../models").userroles;
+const Notifications = require("../models").notificationusers;
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -240,4 +241,5 @@ exports.sendMail = async(req, res) => {
             msg: "Gửi mail thành công"
         })
     })
+
 }

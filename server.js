@@ -35,14 +35,14 @@ io.on('connection', (socket) => {
 		if (getUserFollowerId.code === 1) {
 			const getDataFollows = getUserFollowerId.data;
 			if (getDataFollows && getDataFollows.length > 0) {
-				getDataFollows.forEach((item,index) => {
+				getDataFollows.forEach(async(item,index) => {
 					getUserIdShares = Number(item.dataValues.user_id);
+					io.emit(`result ${getUserIdShares}`, msg);
+					await userServices.saveNotificationUser(getUserIdShares, msg);
 				});
 			}
 			console.log("getUserIdShares", getUserIdShares);
 		}
-
-		io.emit(`result ${getUserIdShares}`, msg);
 	});
 	socket.on('disconnect', () => {
 		console.log('user disconnected');
@@ -83,11 +83,12 @@ require('./routes/SearchWork')(app);
 require('./routes/UserRole')(app);
 require('./routes/follows')(app);
 require('./routes/feedbacks')(app);
+require('./routes/notifications')(app);
 
 app.use(function (err, req, res, next) {
   	res.status(500).send(err);
 });
-
+//connect server
 app.listen(process.env.PORT || 666, () => {
-  	console.log(`Chào mừng bạn đến với Backend với PORT ${process.env.PORT}`);
+  	console.log(`Chào mừng bạn đến với Backend với PORT ${process.env.PORT || 666}`);
 });

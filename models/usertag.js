@@ -10,14 +10,14 @@ module.exports = (sequelize, DataTypes) => {
 		 * The `models/index` file will call this method automatically.
 		 */
 		static associate(models) {
-		UserTag.belongsTo(models.tags, {
-			foreignKey: "tagId",
-			targetKey: "id"
-		});
-		UserTag.belongsTo(models.users, {
-			foreignKey: "userId",
-			targetKey: "id"
-		})
+			UserTag.belongsTo(models.tags, {
+				foreignKey: "tagId",
+				targetKey: "id"
+			});
+			UserTag.belongsTo(models.users, {
+				foreignKey: "userId",
+				targetKey: "id"
+			})
 		}
   	};
 	UserTag.init({
