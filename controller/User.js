@@ -213,8 +213,8 @@ exports.sendMail = async(req, res) => {
     let transporter = nodemailer.createTransport({
         service: "gmail",
         auth: {
-            user: "18a10010230@students.hou.edu.vn", // generated ethereal user
-            pass: "oxtswtobljuxijkn", // generated ethereal password
+            user: "companymyjobs@gmail.com", // generated ethereal user
+            pass: "mjitmcopmssmwjti", // generated ethereal password
         },
         tls: {
             rejectUnauthorized: false
@@ -223,7 +223,7 @@ exports.sendMail = async(req, res) => {
 
     // send mail with defined transport object
     await transporter.sendMail({
-        from: '18a10010230@students.hou.edu.vn', // sender address
+        from: 'companymyjobs@gmail.com', // sender address
         to: `${email}`, // list of receivers
         subject: "Thư mời lịch hẹn phỏng vấn", // Subject line
         text: titleEmail, // plain text body

@@ -5,6 +5,7 @@ module.exports = app => {
     router.post("/", TypeOfWork.create);
     router.get('/', TypeOfWork.findall);
     router.get('/:id', TypeOfWork.findone);
+    router.get("/works/:id", TypeOfWork.getworks)
     router.delete('/:id', TypeOfWork.delete);
     router.patch('/:id', TypeOfWork.update);
 

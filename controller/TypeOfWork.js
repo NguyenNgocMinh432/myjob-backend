@@ -1,5 +1,8 @@
 var TypeOfWork = require('../models').typeofworks;
 var work = require('../models').works;
+const WorkTypeOfWork =  require('../models').worktypeofworks;
+const Company = require('../models').companies;
+const { Op } = require('sequelize');
 require('dotenv').config()
 let PAGE_SIZE = parseInt(process.env.PAGE_SIZE);
 exports.create = (req, res) => {
@@ -51,8 +54,38 @@ exports.findCategori = (req, res) => {
     })
 }
 exports.findone = (req, res) => {
+    
     TypeOfWork.findOne({ where: { id: req.params.id } }).then(data => {
         res.json({ data: data })
+    }).catch(er => {
+        throw er;
+    })
+}
+exports.getworks = (req, res) => {
+    WorkTypeOfWork.findAll({ where: { typeofworkId: req.params.id }, include:[{model: work, attributes: ['id','companyId',"name","address","email","addressGoogle","phone","price","request","dealtime","price2"]}] }).then(data => {
+        // res.json({ data: data })
+        let arrWork = [];
+        let arrRes = [];
+        data && data.forEach((item,index) => {
+            const dataWork = item.dataValues.work
+            arrWork.push(dataWork.dataValues.companyId);
+        })
+        Company.findAll({ where: {id: { [Op.in]: arrWork }}}).then(dataCompany => {
+            data && data.forEach((item,index) => {
+                const getDataWork = item.dataValues.work.dataValues
+                dataCompany.forEach((item,index) => {
+                    getDataWork.company = item.dataValues;
+                })
+                arrRes.push(getDataWork);
+
+            })
+            console.log("arrRes", arrRes);
+            return res.status(200).json({
+                code: 1,
+                msg: "success",
+                data: arrRes
+            })
+        })
     }).catch(er => {
         throw er;
     })

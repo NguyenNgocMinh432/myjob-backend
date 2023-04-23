@@ -18,18 +18,18 @@ module.exports = (sequelize, DataTypes) => {
 	};
   	WorkTypeOfWork.init({
 	typeofworkId: {
-	type: DataTypes.INTEGER,
-	references: {
-		model: "typeofworks",
-		key: "id"
-	}
+		type: DataTypes.INTEGER,
+		references: {
+			model: "typeofworks",
+			key: "id"
+		}
 	},
 	workId: {
-	type: DataTypes.INTEGER,
-	references: {
-		model: "Work",
-		key: "id"
-	}
+		type: DataTypes.INTEGER,
+		references: {
+			model: "Work",
+			key: "id"
+		}
 		},
 	}, {
 		sequelize,

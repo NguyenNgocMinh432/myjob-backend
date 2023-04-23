@@ -16,7 +16,6 @@ exports.notifications = async(req, res) => {
 
 exports.updateNotification = async(req, res) => {
     const id = req.body.id;
-    console.log("id muốn sửa", id);
     const resUpdate = await Notifications.update({status: 1}, {where: {id: id}});
     if (resUpdate) {
         return res.status(200).json({
