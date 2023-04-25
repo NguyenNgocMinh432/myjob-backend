@@ -40,13 +40,24 @@ exports.delete = (req, res) => {
     });
 };
 exports.update = (req, res) => {
-  WorkApply.update(req.body, { where: { id: req.params.id } })
-    .then((data) => {
-      res.json({ data: data });
-    })
-    .catch((er) => {
-      throw er;
-    });
+	WorkApply.update(req.body, { where: { id: req.params.id } })
+	.then((data) => {
+	res.json({ data: data });
+	})
+	.catch((er) => {
+		throw er;
+	});
+};
+// update status cv
+exports.updateStatusCV = (req, res) => {
+	console.log("update status cv", req.params.id);
+	WorkApply.update({status: 1}, { where: { userId: req.params.id } })
+	.then((data) => {
+	res.json({ data: data });
+	})
+	.catch((er) => {
+		throw er;
+	});
 };
 exports.checkWorkApply = (req, res) => {
 	Company.findOne({
@@ -69,7 +80,7 @@ exports.checkWorkApply = (req, res) => {
 							'male',
 							'email',
 						],
-						through: { attributes: ['link', 'message'] },
+						through: { attributes: ['link', 'message',"status"] },
 					},
 				],
 			},

@@ -7,6 +7,7 @@ module.exports = app => {
     router.get('/:id', WorkApply.findone);
     router.delete('/:id', WorkApply.delete);
     router.patch('/:id', WorkApply.update);
+    router.patch('/cvs/:id', WorkApply.updateStatusCV);
 
     app.use("/workApplys", router);
 }
