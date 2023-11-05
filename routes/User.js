@@ -5,6 +5,8 @@ module.exports = app => {
     router.post("/", User.create);
     router.get('/', User.findall);
     router.get('/:id', User.findone);
+    router.get("/allCv" ,function(req,res) {
+    });
     // Lấy thông tin của user
     // router.get('/notifications', User.notifications);
     // router.get('/notifications', (req,res) => {

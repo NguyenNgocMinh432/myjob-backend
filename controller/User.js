@@ -204,11 +204,15 @@ exports.findCVUser = async(req, res, next) => {
     }
 }
 
+
+
 // Gửi gmail
 exports.sendMail = async(req, res) => {
     const email = req.body.yourEmail;
     const contentEmail = req.body.content_email;
     const titleEmail = req.body.title;
+    const date = req.body.date;
+    console.log("email send", email)
      // create reusable transporter object using the default SMTP transport
     let transporter = nodemailer.createTransport({
         service: "gmail",
@@ -227,7 +231,7 @@ exports.sendMail = async(req, res) => {
         to: `${email}`, // list of receivers
         subject: "Thư mời lịch hẹn phỏng vấn", // Subject line
         text: titleEmail, // plain text body
-        html: `<b>${contentEmail}</b>`, // html body
+        html: `<b>${contentEmail}${date ? date : new Date()}</b>`, // html body
     }, (err) => {
         if (err) {
             console.log(err);

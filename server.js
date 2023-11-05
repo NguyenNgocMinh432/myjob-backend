@@ -37,11 +37,11 @@ io.on('connection', (socket) => {
 			if (getDataFollows && getDataFollows.length > 0) {
 				getDataFollows.forEach(async(item,index) => {
 					getUserIdShares = Number(item.dataValues.user_id);
+					console.log("getUserIdShares", getUserIdShares);
 					io.emit(`result ${getUserIdShares}`, msg);
 					await userServices.saveNotificationUser(getUserIdShares, msg);
 				});
 			}
-			console.log("getUserIdShares", getUserIdShares);
 		}
 	});
 	socket.on('disconnect', () => {
@@ -84,6 +84,8 @@ require('./routes/UserRole')(app);
 require('./routes/follows')(app);
 require('./routes/feedbacks')(app);
 require('./routes/notifications')(app);
+require('./routes/Cvs')(app);
+
 
 app.use(function (err, req, res, next) {
   	res.status(500).send(err);

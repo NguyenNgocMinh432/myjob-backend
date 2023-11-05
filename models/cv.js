@@ -23,7 +23,7 @@ module.exports = (sequelize, DataTypes) => {
         userId: {
 			type: DataTypes.INTEGER,
 			references: {
-				model: "Users",
+				model: "users",
 				key: "id"
 			}
 		},
@@ -35,7 +35,9 @@ module.exports = (sequelize, DataTypes) => {
 		certificate: DataTypes.TEXT,
         project: DataTypes.STRING,
         more: DataTypes.STRING,
-		cvId: DataTypes.STRING
+		cvId: DataTypes.STRING,
+		email: DataTypes.STRING,
+		imageCV: DataTypes.STRING,
 
 	}, {
 		sequelize,

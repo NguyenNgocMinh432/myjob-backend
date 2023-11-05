@@ -11,7 +11,7 @@ exports.findone = (req, res) => {
 exports.create = (req, res) => {
     // check xem trong db đã có dữ liệu follow này hay chưa thì mới thêm vào
     if(req.body.user_id) {
-        Follows.findAll({ where: { user_id: req.body.user_id } }).then(data => {
+        Follows.findAll({ where: { user_id_follows: req.body.user_id } }).then(data => {
             // listFollowUser.push(data.dataValues.user_id_follows)
             if (data.length > 0) {
                 return res.status(200).json({
